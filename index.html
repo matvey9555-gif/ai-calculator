@@ -375,30 +375,7 @@ document.getElementById("submitBtn").addEventListener("click", () => {
     }
 
     // Твоя ссылка на Google Script
-    const GOOGLE_URL = "https://script.google.com/macros/s/AKfycbx03DPCCXi7X-OIuRTMqpauQeljmlPOCVUhsRTs5h8NymiAp_t-USp7rC_hQI42jNNyGw/exec";
-
-    const btn = document.getElementById("submitBtn");
-    btn.textContent = "Отправка...";
-    btn.disabled = true;
-
-    fetch(GOOGLE_URL, {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: { "Content-Type": "text/plain;charset=utf-8" } 
-    }).then(() => {
-        if (tg) tg.close();
-    }).catch(err => {
-        alert("Произошла ошибка при отправке. Попробуйте еще раз.");
-        btn.textContent = "Отправить заявку";
-        btn.disabled = false;
-    });
-});
-
-calculate();
-</script>
-
-</body>
-</html><!DOCTYPE html>
+    const GOOGLE_URL = "<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8" />
@@ -776,6 +753,29 @@ document.getElementById("submitBtn").addEventListener("click", () => {
 
     // Твоя ссылка на Google Script
     const GOOGLE_URL = "https://script.google.com/macros/s/AKfycbx03DPCCXi7X-OIuRTMqpauQeljmlPOCVUhsRTs5h8NymiAp_t-USp7rC_hQI42jNNyGw/exec";
+
+    const btn = document.getElementById("submitBtn");
+    btn.textContent = "Отправка...";
+    btn.disabled = true;
+
+    fetch(GOOGLE_URL, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: { "Content-Type": "text/plain;charset=utf-8" } 
+    }).then(() => {
+        if (tg) tg.close();
+    }).catch(err => {
+        alert("Произошла ошибка при отправке. Попробуйте еще раз.");
+        btn.textContent = "Отправить заявку";
+        btn.disabled = false;
+    });
+});
+
+calculate();
+</script>
+
+</body>
+</html>";
 
     const btn = document.getElementById("submitBtn");
     btn.textContent = "Отправка...";
