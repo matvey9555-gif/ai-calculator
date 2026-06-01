@@ -499,7 +499,12 @@ function calculate() {
 // Сборка данных для отправки в Telegram
 document.getElementById("submitBtn").addEventListener("click", () => {
     const total = calculate();
+    const user = tg.initDataUnsafe?.user || {};
+
     const data = {
+        isWebApp: true,
+        userId: user.id,
+        username: user.username || user.first_name || "Клиент",
         category: currentTab,
         total: total,
         customCharacter: document.getElementById("global-character").checked,
@@ -530,13 +535,26 @@ document.getElementById("submitBtn").addEventListener("click", () => {
         };
     }
 
-    if (tg) {
-        tg.sendData(JSON.stringify(data));
-        tg.close();
-    } else {
-        alert("Итоговая сумма: " + total + " сом\n\nСобранные данные (в консоли):");
-        console.log("Payload:", data);
-    }
+    // Твоя ссылка на Google Script
+    const GOOGLE_URL = "https://script.google.com/macros/s/AKfycbx03DPCCXi7X-OIuRTMqpauQeljmlPOCVUhsRTs5h8NymiAp_t-USp7rC_hQI42jNNyGw/exec";
+
+    // Меняем кнопку на время отправки
+    const btn = document.getElementById("submitBtn");
+    btn.textContent = "Отправка...";
+    btn.disabled = true;
+
+    // Отправляем данные
+    fetch(GOOGLE_URL, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: { "Content-Type": "text/plain;charset=utf-8" } 
+    }).then(() => {
+        if (tg) tg.close(); // Закрываем при успехе
+    }).catch(err => {
+        alert("Произошла ошибка при отправке. Попробуйте еще раз.");
+        btn.textContent = "Отправить заявку";
+        btn.disabled = false;
+    });
 });
 
 calculate();
